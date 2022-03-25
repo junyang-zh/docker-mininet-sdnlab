@@ -1,13 +1,15 @@
-# docker-mininet
+# docker-mininet-sdnlab
 
-The Docker image for [Mininet](http://mininet.org/)
+The Docker image for [Mininet](http://mininet.org/).
+
+Forked from [iwaseyusuke/docker-mininet](https://github.com/iwaseyusuke/docker-mininet). This image added some source directories and built ryu tools for the lab.
 
 ## Docker Pull Command
 
 Download from [Docker Hub](https://hub.docker.com/)
 
 ```bash
-docker pull iwaseyusuke/mininet
+docker pull junyangzhang/mininet-sdnlab
 ```
 
 ## Docker Run Command
@@ -16,8 +18,11 @@ docker pull iwaseyusuke/mininet
 docker run -it --rm --privileged -e DISPLAY \
              -v /tmp/.X11-unix:/tmp/.X11-unix \
              -v /lib/modules:/lib/modules \
-             iwaseyusuke/mininet
+             -p 51419:8080 \
+             junyangzhang/mininet-sdnlab
 ```
+
+It will include tshark, so you should manually yes while building.
 
 ## Docker Compose
 
@@ -25,8 +30,17 @@ If you have installed [Docker Compose](https://docs.docker.com/compose/),
 you can run container with:
 
 ```bash
-wget https://github.com/iwaseyusuke/docker-mininet/raw/master/docker-compose.yml
+wget https://github.com/junyang-zh/docker-mininet-sdnlab/raw/master/docker-compose.yml
 docker-compose run --rm mininet
+```
+
+## How to clone and build the docker image
+
+```bash
+git clone https://github.com/junyang-zh/docker-mininet-sdnlab
+cd docker-mininet-sdnlab
+git submodule update --init --recursive
+sudo docker build -t mininet-sdnlab:latest .
 ```
 
 ## TIPS
