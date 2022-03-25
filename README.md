@@ -22,8 +22,6 @@ docker run -it --rm --privileged -e DISPLAY \
              junyangzhang/mininet-sdnlab
 ```
 
-It will include tshark, so you should manually yes while building.
-
 ## Docker Compose
 
 If you have installed [Docker Compose](https://docs.docker.com/compose/),
