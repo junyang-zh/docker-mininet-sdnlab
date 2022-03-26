@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu
 
 USER root
 WORKDIR /root
@@ -7,7 +7,8 @@ COPY ENTRYPOINT.sh /
 COPY mininet /root/mininet
 COPY ryu /root/ryu
 
-RUN apt update && apt install -y --no-install-recommends \
+RUN export DEBIAN_FRONTEND=noninteractive \
+ && apt update && apt install -y --no-install-recommends \
     software-properties-common \
     curl \
     iproute2 \

@@ -15,21 +15,15 @@ docker pull junyangzhang/mininet-sdnlab
 ## Docker Run Command
 
 ```bash
-docker run -it --rm --privileged -e DISPLAY \
-             -v /tmp/.X11-unix:/tmp/.X11-unix \
-             -v /lib/modules:/lib/modules \
-             -p 51419:8080 \
-             junyangzhang/mininet-sdnlab
-```
-
-## Docker Compose
-
-If you have installed [Docker Compose](https://docs.docker.com/compose/),
-you can run container with:
-
-```bash
-wget https://github.com/junyang-zh/docker-mininet-sdnlab/raw/master/docker-compose.yml
-docker-compose run --rm mininet
+#!/bin/bash
+docker run -it --rm --privileged \
+    -e DISPLAY="${DISPLAY//localhost/host.docker.internal}" \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /lib/modules:/lib/modules \
+    --mount type=bind,source="$HOME/.Xauthority",target=/root/.Xauthority \
+    -p 51419:8080 \
+    --add-host host.docker.internal:host-gateway \
+    junyangzhang/mininet-sdnlab
 ```
 
 ## How to clone and build the docker image
@@ -38,7 +32,7 @@ docker-compose run --rm mininet
 git clone https://github.com/junyang-zh/docker-mininet-sdnlab
 cd docker-mininet-sdnlab
 git submodule update --init --recursive
-sudo docker build -t mininet-sdnlab:latest .
+sudo docker build -t junyangzhang/mininet-sdnlab:latest .
 ```
 
 ## TIPS
